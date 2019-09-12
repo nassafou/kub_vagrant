@@ -4,7 +4,7 @@ Vagrant.configure("2") do |config|
     kmaster.vm.box = "debian/stretch64"
     kmaster.vm.hostname = "kmaster"
     kmaster.vm.box_url = "debian/stretch64"
-  # kmaster.vm.network :private_network, ip: "192.168.236.10"
+    kmaster.vm.network :private_network, ip: "192.168.236.10"
     kmaster.vm.provider :virtualbox do |v|
       v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
       v.customize ["modifyvm", :id, "--memory", 512]
@@ -15,7 +15,7 @@ Vagrant.configure("2") do |config|
     sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config    
     service ssh restart
     SHELL
-#   kmaster.vm.provision "shell", path: "install_common.sh"
+    kmaster.vm.provision "shell", path: "install_common.sh"
 #   kmaster.vm.provision "shell", path: "install_master.sh"
   end
   numberSrv=2
@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
         sed -i 's/ChallengeResponseAuthentication no/ChallengeResponseAuthentication yes/g' /etc/ssh/sshd_config    
         service ssh restart
       SHELL
- #     knode.vm.provision "shell", path: "install_common.sh"
+       knode.vm.provision "shell", path: "install_common.sh"
  #     knode.vm.provision "shell", path: "install_node.sh"
     end
   end
