@@ -1,0 +1,8 @@
+---
+ - name: "[WEB]-install "
+   become: yes
+   hosts: web
+   remote_user: bob
+
+   roles:
+     - common 
