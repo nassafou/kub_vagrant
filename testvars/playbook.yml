@@ -3,6 +3,10 @@
    become: yes
    hosts: web
    remote_user: bob
+   vars: 
+     user: johnj
 
    roles:
      - common 
+     - nginx
+     - user
