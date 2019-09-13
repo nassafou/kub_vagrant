@@ -4,6 +4,8 @@
    remote_user: bob
 
    vars:
+     user: johnd
 
    roles: 
      - common
+     - user
