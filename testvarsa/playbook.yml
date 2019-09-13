@@ -1,0 +1,9 @@
+---
+ - name: "[web]- installation"
+   hosts: web
+   remote_user: bob
+
+   vars:
+
+   roles: 
+     - common

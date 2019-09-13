@@ -1,0 +1,4 @@
+---
+ - name: "[WEB]- Install nginx "
+   become: yes 
+   apt: name=nginx state=present

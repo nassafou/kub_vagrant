@@ -1,0 +1,12 @@
+---
+ - name: "[WEB]- create user"
+   when: user is defined
+   user: name={{ user }} comment="John J" shell=/usr/bin/sh
+  
+ - name: "[WEB]- set authorized key taken from file"
+   when: user is defined 
+   authorized_key: user={{ user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+ - name: "{{ user }} devient sudoers"
+   when: user is defined 
+   template: src=templates/sudoers.j2 dest=/etc/sudoers.d/{{ user }}-sudoer validate='visudo -cf %s'
+ 
