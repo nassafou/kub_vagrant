@@ -4,6 +4,10 @@
    remote_user: bob
 
    vars:
+     user: johnd
+     domain: local.dev
 
    roles: 
      - common
+     - user
+     - nginx
