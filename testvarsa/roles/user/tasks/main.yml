@@ -1,0 +1,14 @@
+---
+ - name: "[web]- install user"
+   become: yes
+   when: user is defined
+   user: name={{ user }} comment="John doe" shell=/usr/bin/sh
+ - name: "[web]- add ssh key"
+   become: yes
+   when: user is defined
+   authorized_key: user={{ user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+ - name: "{{ user }} - validation"
+   become: yes
+   when: user is defined
+   template: src=templates/sudoer.j2 dest=/etc/sudoers.d/{{ user }}-sudoer validate='/usr/sbin/visudo -cf %s'
+   
