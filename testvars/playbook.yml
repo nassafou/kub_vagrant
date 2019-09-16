@@ -5,6 +5,7 @@
    remote_user: bob
    vars: 
      user: johnj
+     domain: local.dev
 
    roles:
      - common 
