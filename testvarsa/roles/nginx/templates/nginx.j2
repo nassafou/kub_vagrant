@@ -1,12 +1,24 @@
 server{
-   server_name www.{{ domain }};
-   return 301 $scheme://{{ domain }}$request_uri;
+   server_name www.{{ item.domain }};
+   return 301 $scheme://{{ item.domain }}$request_uri;
 }
-
-
 server{
-  server_name {{ domain }};
-  root /var/www/html/{{ domain }};
+  server_name {{ item }};
+  root /var/www/{{ item }};
+  {% if item.php %}
+  index index.php index.html;
 
+  location ~ \.php$ {
+      try_files $uri =404;
+      factcgi_pass unix:/run/php/php7.0-fpm.sock;
+      factcgi_index index.php;
+      factcgi_param SCRIP_FILENAME $document_root$fastcgi_scrip_name;
+      include fastcgi_params;
+   }
+   location / {
+       try_files $uri $uri//index.php?$query_string;
+  }
+  {% else %}
   index index.html;
+  {% endif %}
 }

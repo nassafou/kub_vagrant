@@ -1,0 +1,28 @@
+--- 
+# configuration  
+ - name: "[web]- config"
+   become: yes
+   when: item.repo is undefined
+   file: path=/home/{{ user }}/{{ item.domain }} state=directory owner={{ user }}
+  
+ - name: "[web]- clonage du site {item.domain}"
+   become: yes
+   when: item/repo is defined
+   git: dest=/home/{{ user }}/{{ item.domain }} clone=yes repo={{ item.repose }}
+ # création des lien symbolique
+ - name: "[web]- lien "
+   become: yes
+   file: src=/home/{{ user }}/{{ item.domain }} dest=/var/www/{{ item.domain }} state=link
+
+# validate item.domain
+ - name: "[web]-injection de la conf serveur"
+   become: yes
+   template: src=templates/nginx.j2 dest=/etc/nginx/sites-available/{{ item.domain }} force=yes
+   notify: nginx reload
+# validate='/usr/sbin/visudo -cf %s'
+
+# Acticvation du site
+ - name: "[web] activation du {{ item.domain }} "
+   become: yes
+   file: src=/etc/nginx/sites-available/{{ item.domain }}  dest=/etc/nginx/sites-enabled/{{ item.domain }} state=link
+   notify: nginx reload
