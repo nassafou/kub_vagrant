@@ -5,7 +5,12 @@
 
    vars:
      user: johnd
-     domain: local.dev
+     domains: 
+        - domain: local.dev 
+          php: no
+
+        - domain:  demo.fr
+          php: yes
 
    roles: 
      - common
