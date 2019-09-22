@@ -1,0 +1,11 @@
+---
+ - name: "[web]-install "
+   hosts: web
+   remote_user: bob
+   vars:
+      user: volibear
+   roles:
+     - common
+     - user
+     - nginx
+     

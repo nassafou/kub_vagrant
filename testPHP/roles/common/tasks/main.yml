@@ -1,0 +1,8 @@
+---
+ - name: "[web]-Install common software"
+   apt: name={{ item }}
+   with_items:
+    - vim
+    - htop
+    - git
+   
