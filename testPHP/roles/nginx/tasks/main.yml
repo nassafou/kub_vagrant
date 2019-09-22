@@ -1,4 +1,8 @@
 --- 
  - name: "[web]- Install nginx"
    become: yes
-   apt: name=nginx state=latest 
+   apt: name=nginx state=latest #cache_update=yes
+
+ - name: "[web]- start nginx"
+   become: yes
+   service: name=nginx state=started
