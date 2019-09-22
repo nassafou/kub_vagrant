@@ -1,5 +1,6 @@
 ---
  - name: "[web]-Install common software"
+   become: yes
    apt: name={{ item }}
    with_items:
     - vim
