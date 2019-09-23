@@ -1,13 +1,14 @@
 ---
- - name: "[web]-install "
-   hosts: web
+ - name: "[mariadb]-install "
+   hosts: mariadb
    remote_user: bob
-   vars:
-      user: volibear
-      domain: dev.local
+#   vars:
+#      user: volibear
+#      domain: dev.local
 
    roles:
-     - common
-     - user
-     - nginx
+#     - common
+#     - user
+#     - nginx
+     - mariadb
      

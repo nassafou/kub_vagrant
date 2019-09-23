@@ -1,0 +1,12 @@
+maria_packages:
+    - software-properties-common
+    - mariadb-server
+    - mariadb-client
+    - python-mysqldb
+
+maria_databases:
+   - yata1
+   - yata2
+   - yata3
+
+

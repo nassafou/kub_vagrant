@@ -1,0 +1,48 @@
+---
+# - name: "[mariadb]- update os"
+#   become: yes
+#   apt: update_cache=yes
+
+ - name: "[mariadb]- install "
+   become: yes
+   apt:   name={{ item }}
+   with_items:
+      - software-properties-common
+      - mariadb-server
+      - mariadb-client
+      - python-mysqldb
+
+ 
+ - name: "[mariadb]- start service"
+   become: yes
+   service: 
+       name: mariadb 
+       state: started
+
+ - name: "[mariadb]- install DB"
+   become: yes
+   mysql_db: name={{ item }} state=present 
+   with_items: 
+        - yata1
+        - yata2
+        - yata3
+ 
+ - name: "[mariadb]- change my.cnf"
+   become: yes
+   lineinfile: dest="/etc/mysql/my.cnf" line={{ item }}
+   with_items: 
+      - "[mysqld]"
+      - "bind-address = 0.0.0.0"
+      - "# skip-networking"
+   notify: maria_restart
+
+ - name: "[mariadb]- create user"
+   become: yes
+   mysql_user:
+      name: yata
+      password: yata
+      priv: "*.*:ALL"
+      host: "%"
+ - name: "[mariadb]- restart"
+   become: yes
+   service: name=mariadb state=restarted enabled=yes
