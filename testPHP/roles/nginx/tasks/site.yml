@@ -1,0 +1,21 @@
+---
+  #creation de dossier
+ - name: "[web]- creation de dossier"
+   file: path=/home/{{ user }}/{{ domain }}   state=directory owner={{ user }}
+
+
+  #lien ver wwww
+ - name: "[web]- lien vers www"
+   file: src=/home/{{ user }}/{{ domain }} dest=/var/www/{{ domain }}  state=link
+
+ - name: "[web]- create virtual server"
+   template: src=templates/nginx.j2 dest=/etc/nginx/sites-available/{{ domain }}
+  
+
+  #activate sites-enable
+ - name: "[web]- activate"
+   file: src=/etc/nginx/sites-available/{{ domain }} dest=/etc/nginx/sites-enabled/{{ domain }} state=link
+   notify: nginx reload
+
+ 
+   
