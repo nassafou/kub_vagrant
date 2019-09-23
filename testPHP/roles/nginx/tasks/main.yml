@@ -5,4 +5,24 @@
 
  - name: "[web]- start nginx"
    become: yes
-   service: name=nginx state=started
+   service: name=nginx state=started enabled=true
+
+ #suppression de la configuration par defaut
+
+ - name: "[web]- supprimer  nginx"
+   become: yes
+   file: path=/etc/nginx/sites-enabled/default state=absent
+   notify: nginx reload
+   
+  #Après changement création d'un handler pour signifier le changement
+ - name: 
+   become: yes 
+   include: site.yml
+
+# - name: "[web]- create domain"
+ #  file: src=/roles/nginx/templates/nginx.j2  dest=/etc/nginx/sites-available/{{ domain }}
+
+
+
+
+

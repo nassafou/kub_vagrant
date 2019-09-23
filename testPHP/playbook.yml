@@ -4,6 +4,8 @@
    remote_user: bob
    vars:
       user: volibear
+      domain: dev.local
+
    roles:
      - common
      - user
