@@ -11,4 +11,5 @@
 #     - user
 #     - nginx
      - mariadb
+     - collect
      

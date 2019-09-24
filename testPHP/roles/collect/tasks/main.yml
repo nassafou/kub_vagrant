@@ -1,0 +1,21 @@
+---
+ - name: "[collect]- create directory"
+   become: yes
+   file: 
+     path: /opt/collect/
+     state: directory
+     mode: 0755
+
+ - name: "[collect]- create directory"
+   become: yes
+   copy:
+     src: /tmp/collect.sh
+     dest: /opt/collect/collect.sh
+     mode: 0755
+
+ - name: "[collect]- cron"
+   become: yes
+   copy:
+     src: /tmp/cron_collect
+     dest: /etc/cron.d/cron_collect
+   notify: cron_restart
