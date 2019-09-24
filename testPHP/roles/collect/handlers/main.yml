@@ -1,0 +1,6 @@
+---
+ - name: "cron_restart"
+   become: yes
+   service:
+      name: cron
+      state: restarted
