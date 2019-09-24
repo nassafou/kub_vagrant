@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>{{ title }} - Microblog</title>
+    </head>
+    <body>
+        <h1>Hello, {{ data.user }}!</h1>
+				<p>Machine : {{ data.machine }}</p>
+				<p>OS : {{ data.os }}</p>
+				<p>Distribution : </p>
+				{% for elem in data.dist %}
+					<p style="padding-left:20px">- {{ elem }}</p> 
+				{% endfor %}
+				<p>Interfaces : </p>
+				{% for inter in data.interfaces %}
+					<p style="padding-left:20px">- {{ inter }}</p> 
+				{% endfor %}
+    </body>
+</html>
+
