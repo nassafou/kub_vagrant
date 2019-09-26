@@ -1,0 +1,16 @@
+---
+ - name: Dump database
+   mysql_db:
+     name: "{{ databases.maria.central }}"
+     state: dump
+     encoding: utf8
+     target: "/tmp/{{ databases.maria.central }}.sql"
+   tags: backup
+
+ - name: Compress dump database
+   archive: 
+      path: "/tmp/{{ databases.maria.central }}.sql"
+      dest: "/tmp/{{ databases.maria.central}}.sql.gz"
+      remove: yes 
+   tags: backup
+
