@@ -12,4 +12,9 @@
 #     - nginx
      - mariadb
      - collect
-     
+ 
+ - name: "[central]- install"
+   remote_user: bob
+   hosts: central
+   roles: 
+     - central

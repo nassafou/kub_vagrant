@@ -1,0 +1,11 @@
+[Unit]
+Description= Flask centralisation des datas
+After=network.target
+
+[Service]
+User=root
+ExecStart=/opt/central/central.py
+
+[Install]
+WantedBy=multi-user.target
+

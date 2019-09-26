@@ -1,0 +1,14 @@
+#---
+# - maria_packages:
+#    - software-properties-common
+#    - mariadb-server
+#    - mariadb-client
+#    - python-mysqldb
+#    - python-flask
+#
+# - maria_databases:
+#    - collect
+#
+# - maria_user: yata
+# - maria_pwd: yata
+#

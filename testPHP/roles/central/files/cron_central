@@ -1,0 +1,8 @@
+# cron collect déployé par ansible
+
+* * * * * bob /opt/collect/collect.sh
+
+# si tous les jours
+
+#00 23 * * * bob /opt/collect/collect.sh
+
