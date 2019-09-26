@@ -1,0 +1,95 @@
+---
+- name : "[CENTRAL] - apt-get update"
+  become: yes
+  apt:
+    update_cache: yes
+  tags: update
+
+
+- name : "[CENTRAL] - install"
+  become: yes
+  apt:
+    name: "{{ item }}"
+  with_items: 
+     - software-properties-common
+     - mariadb-server
+     - mariadb-client
+     - python-mysqldb
+     - python-flask
+
+
+- name : "[CENTRAL] - start service"
+  become: yes
+  service:
+    name: mariadb
+    state: started
+
+
+- name : "[CENTRAL] - install DB"
+  become: yes
+  mysql_db:
+    name: "{{ item }}"
+    state: present
+  with_items: 
+      - collect
+
+- name: "[CENTRAL] - change my.cnf"
+  become: yes
+  lineinfile:
+    dest: "/etc/mysql/my.cnf"
+    line: "{{ item }}"
+  with_items:
+    - "[mysqld]"
+    - "bind-address  = 0.0.0.0"
+    - "# skip-networking"
+  notify: maria_restart
+
+- name: "[CENTRAL] - create user"
+  become: yes
+  mysql_user:
+    name: yata
+    password: yata
+    priv: "*.*:ALL"
+    host: "%"
+
+- name: "[CENTRAL] - restart"
+  become: yes
+  service:
+    name: mariadb
+    state: restarted
+    enabled: yes
+
+- name: "[CENTRAL] - create directory"
+  become: yes
+  file:
+    path: /opt/central/
+    state: directory
+    mode: 0755
+
+- name: "[CENTRAL] - copy file appli"
+  become: yes
+  copy:
+    src: central.py
+    dest: /opt/central/central.py
+    mode: 0755
+
+- name: "[CENTRAL] - create directory"
+  become: yes
+  file:
+    path: /var/central
+    state: directory
+    mode: 0755
+
+- name: "[CENTRAL] - copy file service"
+  become: yes
+  copy:
+    src: central.service
+    dest: /etc/systemd/system/central.service
+    mode: 0755
+
+- name: "[CENTRAL] - start service central"
+  become: yes
+  service:
+    name: central
+    state: started
+
