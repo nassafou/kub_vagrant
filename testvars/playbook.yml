@@ -1,13 +1,37 @@
 ---
  - name: "[WEB]-install "
    become: yes
-   hosts: web
+   hosts: all
    remote_user: bob
    vars: 
      user: johnj
      domain: local.dev
+     favorite_club: "psg"
+
+   vars_files:
+       - myvarsfile.yml
 
    roles:
-     - common 
-     - nginx
-     - user
+#     - common 
+#     - nginx
+#     - user
+   tasks: 
+#     - name: show new variable
+#       debug:
+#         msg: "my variable is {{ favorite_club }}" 
+#     - name: show my variable 
+#       debug:
+#         msg: "{{ my_var }}"
+
+
+      - name: show operating system name
+        debug:
+          msg: "Operating system name is : {{ ansible_distribution }}" 
+
+      - name: set a new variable
+        set_fact:
+          nom: "{{ ansible_distribution }}" 
+
+      - name: show owner lastname
+        debug:
+          msg: "{{ nom  }}" 
