@@ -1,0 +1,11 @@
+---
+# - name: "[web]install update "
+#   become: yes
+ #  apt: name='*' state=latest # cache_update=yes
+
+ - name: "[web] utils"
+   become: yes
+   apt: name={{ item }} state=latest
+   with_items:
+       - htop
+       - git 
