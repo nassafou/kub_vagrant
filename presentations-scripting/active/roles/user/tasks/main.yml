@@ -1,0 +1,5 @@
+---
+ - name: "[web]Add the user"
+   become: yes
+   when: user is defined
+   user: name={{ user }} comment="John Doe" shell=/bin/bash
