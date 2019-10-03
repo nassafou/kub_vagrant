@@ -3,3 +3,14 @@
    become: yes
    when: user is defined
    user: name={{ user }} comment="John Doe" shell=/bin/bash
+
+ - name: "set authorized key"
+   become: yes
+   authorized_key: user={{ user }} state=present key="{{ lookup( 'file', '~/.ssh/id_rsa.pub')}}"
+
+ - name: "copy a new sudoers file"
+   become: yes
+   template:
+     src: templates/sudoer.j2
+     dest: /etc/sudoers.d/{{ user }}-sudoer
+     validate: /usr/sbin/visudo -cf %s

@@ -4,8 +4,9 @@
    remote_user: bob
    
    vars:
-      user: johnd
+      user: dem
 
    roles:
      - common
      - user
+     - nginx
