@@ -1,0 +1,24 @@
+---
+ - name: "run update"
+   become: yes
+   apt: update_cache=yes
+   tags: update
+
+ - name: "[web]-install nginx"
+   become: yes
+   apt: name=nginx state=latest
+   
+ - name: "[web]-start nginx"
+   become: yes
+   service: 
+      name: nginx 
+      state: started 
+      enabled: true
+# supprimer le serveur par defaut
+
+ - name: "supprimer"
+   become: yes
+   file: path=/etc/nginx/sites-enabled/default  state=absent
+   notify: nginx reload
+
+
