@@ -1,0 +1,42 @@
+---
+ - name: "run update"
+   become: yes
+   apt: update_cache=yes
+   tags: update
+
+ - name: "[web]-install nginx"
+   become: yes
+   apt: name=nginx state=latest
+   
+ - name: "[web]-start nginx"
+   become: yes
+   service: 
+      name: nginx 
+      state: started 
+      enabled: true
+# supprimer le serveur par defaut
+
+ - name: "supprimer"
+   become: yes
+   file: path=/etc/nginx/sites-enabled/default  state=absent
+   notify: nginx reload
+
+# création d'un nouveau serveurweb
+
+ - name: "create directory"
+   become: yes
+   file: path=/home/{{ user }}/{{ domain }}  state=directory mode='0775'
+ 
+ - name: "create link to www"
+   become: yes
+   file: src=/home/{{ user }}/{{ domain }}  dest=/var/www/{{ domain }}  state=link
+
+ - name: "template to  sites-available"
+   become: yes
+   template: src=templates/nginx.j2  dest=/etc/nginx/sites-available/{{ domain }} 
+
+ - name: "activate to  sites-enable "
+   become: yes 
+   file: src=/etc/nginx/sites-available/{{ domain }} dest=/etc/nginx/sites-enabled/{{ domain }} state=link
+ 
+

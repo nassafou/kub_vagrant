@@ -1,0 +1,10 @@
+- name: create tmpfiles journald
+  shell: "systemd-tmpfiles --create --prefix /var/log/journal"
+  args:
+    executable: /bin/bash
+
+- name: restart journald
+  service: name=systemd-journald state=restarted
+
+- name: restart chronyd
+  service: name=chronyd state=restarted

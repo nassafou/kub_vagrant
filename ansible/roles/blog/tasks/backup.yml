@@ -1,0 +1,41 @@
+- name: Dump database
+  mysql_db:
+    name: "{{ databases.wordpress.base }}"
+    state: dump
+    encoding: utf8
+    target: "/tmp/{{ databases.wordpress.base }}.sql"
+  tags: backup
+  
+- name: Compress dump database
+  archive:
+    path: "/tmp/{{ databases.wordpress.base }}.sql"
+    dest: "/tmp/{{ databases.wordpress.base }}.sql.gz"
+    remove: yes
+  tags: backup
+   
+- name: Make tarballs from selected directories
+  archive:
+    path: "/usr/share/wordpress/wp-content/{{ item }}"
+    dest: "/tmp/wp-{{ item }}.tar.gz"
+  with_items:
+    - "uploads"
+  tags: backup
+    
+- name: Fetch database dump and tarballs
+  fetch:
+    src: "/tmp/{{ item }}"
+    dest: "roles/blog/files/{{ item }}"
+    flat: yes
+  with_items:
+    - "{{ databases.wordpress.base }}.sql.gz"
+    - "wp-uploads.tar.gz"
+  tags: backup
+
+- name: Delete db dump and tarballs
+  file:
+    dest: "/tmp/{{ item }}"
+    state: absent
+  with_items:
+    - "{{ databases.wordpress.base }}.sql.gz"
+    - "wp-uploads.tar.gz"
+  tags: backup

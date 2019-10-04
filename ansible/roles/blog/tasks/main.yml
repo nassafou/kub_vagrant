@@ -1,0 +1,88 @@
+# Install RPM package(s)
+- name: Ensure RPM(s) are installed and up-to-date
+  yum: 
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages: "{{ rpms }}"
+  
+- name: Copy database dumps to remote
+  copy:
+    src: "{{ databases.wordpress.base }}.sql.gz"
+    dest: "/tmp/{{ databases.wordpress.base }}.sql.gz"
+  failed_when: false
+
+# Replace task "Ensure database exists"
+- name: Ensure database exists and import dump
+  mysql_db:
+    name: "{{ databases.wordpress.base }}"
+    state: present
+    encoding: utf8
+  notify:
+    - Check if db dump exists
+    - Import SQL databases
+  tags:
+    - restore
+  
+- name: Ensure database user exists
+  mysql_user: 
+    name: "{{ databases.wordpress.user }}"
+    host: localhost
+    password: "{{ databases.wordpress.passwd }}"
+    priv: '{{ databases.wordpress.base }}.*:ALL'
+    
+- name: Ensure wordpress config link exists
+  file:
+    src: "/etc/wordpress/wp-config.php"
+    dest: "/usr/share/wordpress/wp-config.php"
+    state: link
+
+# Manage wordpress
+- name: Ensure Wordpress is configured
+  lineinfile: 
+    path: /etc/wordpress/wp-config.php
+    regexp: "define.*'{{ item.key }}'"
+    line: "define('{{ item.key }}', '{{ item.value }}' );"
+  with_dict: "{{ wordpress.settings }}"
+  
+- name: Ensure wordpress is restored from backup
+  unarchive:
+    src: "{{ item }}.tar.gz"
+    dest: "/usr/share/wordpress/wp-content"
+    creates: "/usr/share/wordpress/wp-content/{{ item }}"
+  with_items:
+    - uploads
+  failed_when: false
+    
+- name: Ensure some Wordpress directories are owned by apache
+  file:
+    path: "/usr/share/wordpress/wp-content/{{ item }}"
+    state: directory
+    owner: apache
+    group: ftp
+    mode: 02775
+  with_items:
+    - gallery
+    - uploads
+  
+- name: Ensure wordpress config files have apache group
+  file:
+    dest: "{{ item }}"
+    owner: root
+    group: apache
+    mode: 0640  
+  with_items:      
+  - "/etc/wordpress/wp-config.php"
+  
+- name: Ensure wordpress alias is defined for httpd
+  copy:
+    src: "wordpress.conf"
+    dest: "/etc/httpd/conf.d/wordpress.conf"
+    backup: yes
+  notify:
+  - restart httpd
+  
+- include_tasks: backup.yml
+  tags:
+    - never
+    - backup

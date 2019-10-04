@@ -1,0 +1,22 @@
+rpms:
+  - postfix
+  - chrony
+  - multitail
+  - mlocate
+  - screen
+  - vim-enhanced
+  - yum-utils
+  - bzip2
+  - unzip
+  - bind-utils
+  - man-pages
+  - net-tools
+  - tree
+  - uuid
+  - etckeeper
+  - wget
+  - yum-utils
+  - NetworkManager
+  - rsyslog
+
+ntp_pool_domain: fr.pool.ntp.org

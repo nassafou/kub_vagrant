@@ -1,0 +1,19 @@
+# Set timezone
+- name: Ensure localtime is CEST
+  file:
+    src: "/usr/share/zoneinfo/{{ localtime }}"
+    dest: "/etc/localtime"
+    owner: root
+    group: root
+    state: link
+
+# Configure chrony
+- name: Ensure chrony use our ntp server pools before centos ones
+  lineinfile: 
+    path: /etc/chrony.conf
+    line: 'server {{ item }}.{{ ntp_pool_domain }} iburst'
+    regexp: '^server {{ item }}.{{ ntp_pool_domain }} iburst'
+    insertbefore: 'server 0.centos.pool.ntp.org iburst'
+  with_items: [ 0, 1, 2, 3 ]
+  notify:
+  - restart chronyd

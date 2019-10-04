@@ -1,0 +1,20 @@
+---
+php_packages:
+  - php7.0
+  - php7.0-common
+  - php7.0-cli
+  - php7.0-intl
+  - php7.0-curl
+  - php7.0-cgi
+  - php7.0-fpm
+  - php7.0-mcrypt
+  - php7.0-mysql
+  - php7.0-gd
+php_timezone: Europe/Paris
+php_upload_max_filesize: "20M"
+php_post_max_size: "20M"
+php_memory_kimit: "1024M"
+# Que l'on utilisera Ensuite
+#- name: Installation du package {{ item }}
+#  apt: name={{ item }} state=latest
+#  with_items: php_packages

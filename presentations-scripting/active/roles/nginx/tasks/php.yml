@@ -1,0 +1,21 @@
+
+ - name: "Add do---tdeb repository"
+   become: yes
+   apt_repository: repo='{{ item}}'
+   with_items:
+      - deb http://packages.dotdeb.org jessie all
+      - deb-src http://packages.dotdeb.org jessie all
+ - name: "[dev] add key"
+   become: yes
+   apt_key: url=https://www.dotdeb.org/dotdeb.gpg
+
+ - name: "[dev] apt update"
+   become: yes
+   apt: update_cache=yes 
+   tags: update
+
+ - name: "[dev] install PHP"
+   become: yes
+   apt: name={{ item }} state=latest
+   with_items: 
+       - php_packages

@@ -1,0 +1,12 @@
+- name: Check if db dump exists
+  stat:
+    path: "/tmp/{{ databases.wordpress.base }}.sql.gz"
+  register: dump_exists
+
+- name: Import SQL databases
+  mysql_db:
+    name: "{{ databases.wordpress.base }}"
+    state: import
+    encoding: utf8
+    target: "/tmp/{{ databases.wordpress.base }}.sql.gz"
+  when: dump_exists and dump_exists.stat.exists

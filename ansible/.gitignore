@@ -1,0 +1,6 @@
+.directory
+*.tar.gz
+*.sql.gz
+*.retry
+Ansible-Mark-RGB.svg
+AnsibleLogo.png
