@@ -1,0 +1,14 @@
+# Manage etckeeper
+- name: Ensure etc is versionned
+  shell: "etckeeper init"
+  args:
+    executable: /bin/bash
+    creates: /etc/.git
+    chdir: /etc
+  
+- name: Ensure first commit is done for etc
+  shell: "etckeeper commit 'First commit'"
+  args:
+    executable: /bin/bash
+    creates: /etc/.git/refs/heads/master
+    chdir: /etc 

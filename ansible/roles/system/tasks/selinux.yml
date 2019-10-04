@@ -1,0 +1,15 @@
+# Install packages
+- name: Ensure selinux packages are installed and up-to-date
+  yum: 
+    list: "[u'selinux-polic', u'selinux-policy-targeted']"
+    state: latest
+  register: selinux_install
+  
+- name: Ensure autorelabel is set if selinux was disabled
+  file:
+    path: "/.autorelabel"
+    owner: root
+    group: root
+    mode: 0600
+    state: touch  
+  when: selinux_install is changed

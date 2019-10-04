@@ -5,6 +5,9 @@
    
    vars:
       user: dem
+      domains: "{{ item }}"
+         
+        
 
    roles:
      - common

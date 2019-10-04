@@ -1,0 +1,110 @@
+# Install packages
+- name: Ensure packages of services are installed and up-to-date
+  yum: 
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages: "{{ rpms }}"
+
+# Manage firewall
+- name: Ensure firewall rules are set
+  firewalld: 
+    service: http
+    permanent: true
+    immediate: true
+    state: enabled
+
+# Configure php
+- name: Ensure php is configured
+  lineinfile: 
+    path: /etc/php.ini
+    regexp: '^{{ item.key }}'
+    line: '{{ item.key }} = {{ item.value }}'
+    insertafter: '{{ item.after }}'
+  with_items: 
+  - key: default_charset
+    value: "\"UTF-8\""
+    after: ";default_charset = \"UTF-8\""
+  - key: date.timezone
+    value: "\"{{ localtime }}\""
+    after: ";date.timezone.*"
+  
+- name: Ensure SELinux allow httpd to do a lot of things
+  seboolean:
+    name: "{{ item }}"
+    state: yes
+    persistent: yes
+  with_items: "{{ selinux_booleans }}"
+
+# Manage all services
+- name: Ensure services are started and enabled
+  systemd:
+    name: "{{ item }}"
+    enabled: yes
+    masked: no
+    state: started
+    daemon_reload: yes
+  with_items:
+  - mariadb
+  - httpd
+  
+# Manage mariadb service
+- name: Ensure mariadb binds localhost only
+  lineinfile: 
+    path: /etc/my.cnf.d/server.cnf
+    regexp: 'bind-address = localhost'
+    line: 'bind-address = localhost'
+    insertafter: '\[mysqld\]'
+  notify:
+  - restart mariadb
+  
+# Add mysql users and databases;
+# Need to do this for idempotency, see
+# http://ansible.cc/docs/modules.html#mysql-user
+- name: Ensure mysql root password for localhost root account is updated
+  mysql_user:
+    name: root
+    host: "localhost"
+    password: "{{ dbrootpasswd }}"
+    
+- name: Ensure .my.cnf file with root password credentials exists
+  blockinfile:
+    path: /root/.my.cnf
+    owner: root
+    group: root
+    mode: 0600
+    create: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK #"
+    block: |
+      [client]
+      user = root
+      password = {{ dbrootpasswd }}
+
+- name: Ensure mysql root password for all others root accounts is updated
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ dbrootpasswd }}"
+  with_items:
+    - "127.0.0.1"
+    - "::1"
+
+- name: Ensure default none-needed users are deleted
+  mysql_user:
+    name: ''
+    host: "{{ item }}"
+    state: absent
+  with_items:
+    - user: ''
+      host: "localhost"
+    - user: ''
+      host: "{{ hostname.short }}.{{ hostname.domain }}"
+    - user: "root"
+      host: "{{ hostname.short }}.{{ hostname.domain }}"
+
+- name: Remove the test database
+  mysql_db:
+    name: test
+    state: absent
+
+

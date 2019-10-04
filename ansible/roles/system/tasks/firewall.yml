@@ -1,0 +1,16 @@
+# Manage firewall service
+- name: Ensure firewalls is started and enabled
+  systemd:
+    name: firewalld
+    enabled: yes
+    masked: no
+    state: started
+    daemon_reload: yes
+
+# Manage firewall: open ssh
+- name: Ensure firewall rules are set
+  firewalld: 
+    service: ssh
+    permanent: true
+    immediate: true
+    state: enabled

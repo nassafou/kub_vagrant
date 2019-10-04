@@ -1,0 +1,15 @@
+rpms:
+  - mariadb-server
+  - httpd
+  - php
+  - php-mysqlnd
+  - libsemanage-python
+  - MySQL-python
+
+selinux_booleans:
+  - httpd_can_network_connect
+  - httpd_can_sendmail
+  - httpd_unified
+  - httpd_enable_homedirs
+  
+dbrootpasswd: "monsupermotdepasse"

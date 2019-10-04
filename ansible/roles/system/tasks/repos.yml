@@ -1,0 +1,5 @@
+# Repositories
+- name: Ensure epel repository is set
+  yum:
+    name: epel-release
+    state: latest

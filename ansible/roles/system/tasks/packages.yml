@@ -1,0 +1,20 @@
+# System update
+- name: Ensure all pkgs are up-to-date
+  yum:
+    name: '*'
+    state: latest
+  tags: update
+  
+# Uninstall unwanted packages
+- name: Ensure unwanted packages of services are absent
+  yum: 
+    list: "[u'ssmtp', u'sendmail']"
+    state: absent
+
+# Install packages
+- name: Ensure packages are installed and up-to-date
+  yum: 
+    name: "{{ packages }}"
+    state: latest
+  vars:
+    packages: "{{ rpms }}"

@@ -1,0 +1,17 @@
+
+ - name: "create directory"
+   become: yes
+   file: path=/home/{{ user }}/{{ item }}  state=directory mode='0775'
+ 
+ - name: "create link to www"
+   become: yes
+   file: src=/home/{{ user }}/{{ item }}  dest=/var/www/{{ item }}  state=link
+
+ - name: "template to  sites-available {{ item }}"
+   become: yes
+   template: src=templates/nginx.j2  dest=/etc/nginx/sites-available/{{ item }} 
+
+ - name: "activate to  sites-enable {{ item }}"
+   become: yes 
+   file: src=/etc/nginx/sites-available/{{ item }} dest=/etc/nginx/sites-enabled/{{ item }} state=link
+   notify: nginx reload

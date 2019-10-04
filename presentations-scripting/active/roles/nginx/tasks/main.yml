@@ -21,4 +21,16 @@
    file: path=/etc/nginx/sites-enabled/default  state=absent
    notify: nginx reload
 
+ #install PHP
+ - name: "[dev]- install PHP"
+   become:
+   include: php.yml
+   
 
+# création d'un nouveau serveurweb
+ - name: "include domain "
+   become: yes
+   include: site.yml 
+   with_items: 
+       - blog.dev
+       - demo.fr

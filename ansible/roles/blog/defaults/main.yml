@@ -1,0 +1,15 @@
+rpms:
+  - wordpress
+  - php-pecl-imagick
+
+databases:
+  wordpress:
+    user: wordpress
+    passwd: wordpresspasswd
+    base: wordpress
+
+wordpress:
+  settings:
+    DB_NAME: "{{ databases.wordpress.base }}"
+    DB_USER: "{{ databases.wordpress.user }}"
+    DB_PASSWORD: "{{ databases.wordpress.passwd }}"
