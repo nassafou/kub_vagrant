@@ -5,7 +5,12 @@
    
    vars:
       user: dem
-      domains: "{{ item }}"
+      domains:
+         - domain: "{{ item }}"
+           php: no
+           repo: https://github.com/nassafou/sitesy.git
+         - domain: "{{ item }}"
+           php: yes
          
         
 

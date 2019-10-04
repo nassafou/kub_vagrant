@@ -17,5 +17,15 @@
  - name: "[dev] install PHP"
    become: yes
    apt: name={{ item }} state=latest
+   
    with_items: 
-       - php_packages
+      - defaults/php_packages
+
+ - name: Retrait des fonctions dangereuse 
+   lineinfile: dest=/etc/php/7.0/fpm/php.ini regexp='disable_functions[\$]?=' line='disable_functions -exec,passthru,shell_'
+ - lineinfile: dest=/etc/php/7.0/fpm/php.ini regexp='post_max_size[\$]?=' line='post_max_size ={{ php_post_max_size}}'
+ - lineinfile: dest=/etc/php/7.0/fpm/php.ini regexp='upload_max_filesize[\$]?=' line='upload_max_filesize ={{ php_upload_max_filesize}}'
+ - lineinfile: dest=/etc/php/7.0/fpm/php.ini regexp='memory_limit[\$]?=' line='memory_limit ={{ php_memory_limit}}'
+
+ - lineinfile: dest=/etc/php/7.0/fpm/php.ini regexp='date.timezone[\$]?=' line='date.timezone ={{ php_timezone}}'
+   notify: php restart
