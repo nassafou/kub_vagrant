@@ -1,0 +1,24 @@
+image: grafikart/gitlab-ci:php7
+
+cache:
+  paths:
+  - vendor/
+
+before_script:
+- composer install
+
+services:
+- mysql
+
+variables:
+    MYSQL_DATABASE: test
+    MYSQL_ROOT_PASSWORD: root
+
+test:php7:
+    script:
+    - composer test
+
+test:php56:
+    image: grafikart/gitlab-ci:php56
+    script:
+    - composer test
