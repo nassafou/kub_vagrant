@@ -1,17 +1,25 @@
+---
+ - name: create doc
+   become: yes 
+   when: item.repo is undefined
+   file: path=/home/{{ user }}/{{ item.domain }}  state=directory mode='0775'
 
- - name: "create directory"
+
+ - name: "clonage du site {{ item.domain }} depuis {{ item.repo}}"
    become: yes
-   file: path=/home/{{ user }}/{{ item }}  state=directory mode='0775'
- 
+   when: item.repo is defined
+   git: dest=/home/{{ user }}/{{ item.domain }} clone=yes repo={{ item.repo }}
+
  - name: "create link to www"
    become: yes
-   file: src=/home/{{ user }}/{{ item }}  dest=/var/www/{{ item }}  state=link
+   file: src=/home/{{ user }}/{{ item.domain }}  dest=/var/www/{{ item.domain }}  state=link
 
- - name: "template to  sites-available {{ item }}"
+ - name: "template to  sites-available {{ item.domain }}"
    become: yes
-   template: src=templates/nginx.j2  dest=/etc/nginx/sites-available/{{ item }} 
+   template: src=templates/nginx.j2  dest=/etc/nginx/sites-available/{{ item.domain }} force=yes
+   notify: nginx reload
 
- - name: "activate to  sites-enable {{ item }}"
+ - name: "activate to  sites-enable {{ item.domain }}"
    become: yes 
-   file: src=/etc/nginx/sites-available/{{ item }} dest=/etc/nginx/sites-enabled/{{ item }} state=link
+   file: src=/etc/nginx/sites-available/{{ item.domain }} dest=/etc/nginx/sites-enabled/{{ item.domain }} state=link
    notify: nginx reload
