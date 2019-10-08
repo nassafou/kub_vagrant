@@ -1,9 +1,0 @@
-#!/bin/sh
-
-hosts=`cat kub_vagrant/testPHP/hosts  | awk 'NR>1 {print $1}' | grep 192[.*] `
-echo $hosts
-for host in $hosts;do
-echo "Pour ${host}"
-MYSQL_PWD=yata mysql -h $host -u yata -e "show databases;"
-echo ""
-done 
