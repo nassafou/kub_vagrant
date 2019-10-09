@@ -1,4 +1,4 @@
 ---
- - hostname:
+  hostname:
      short: web
      domain: exemple.com
