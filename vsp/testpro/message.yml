@@ -1,0 +1,4 @@
+---
+ - name: affiche msg
+   debug: 
+    msg: "hello"
