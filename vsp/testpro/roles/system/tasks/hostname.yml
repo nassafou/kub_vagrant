@@ -1,14 +1,20 @@
 ---
 # set Hostname
- - name: Ensure hostname is set
-   hostname:
-     name: "{{ hostname.short }}.{{ hostname.domain }}"
+# - name: Ensure hostname is set
+#   hostname:
+#     name: "{{ hostname.short }}.{{ hostname.domain }}"
+
+ - name: id
+   debug: 
+     msg: {{ var_y }}
+
+
 
 # define banners
- - name: Define banners
-   template:
-     src: "motd"
-     dest: "/etc/motd"
-     owner: root 
-     group: root 
-     mode: 0644
+# - name: Define banners
+#   template:
+#     src: "motd"
+#    dest: "/etc/motd"
+#     owner: root 
+#     group: root 
+#     mode: 0644

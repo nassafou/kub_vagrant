@@ -2,6 +2,7 @@
  #- name: import playbook
  
  - import_playbook: message.yml
-#   import_playbook: lamp.yml
-#   import_playbook: blog.yml
+ - import_playbook: system.yml
+ - import_playbook: lamp.yml
+ - import_playbook: blog.yml
 

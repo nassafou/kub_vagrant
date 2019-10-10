@@ -1,4 +1,12 @@
 ---
- - name: affiche msg
-   debug: 
-    msg: "hello"
+ - name: test 
+   hosts: web
+   become: yes 
+   remote_user: bob
+   vars:
+    my_var: paris
+
+   tasks:
+    - name: affiche msg
+      debug: 
+        msg: "ici c'est {{ my_var }}"

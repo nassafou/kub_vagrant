@@ -1,0 +1,2 @@
+Hostname : {{ hostname.short }}.{{ hostname.domain }}
+IPv4 :     {{ ansible_default_ipv4.address }}       
