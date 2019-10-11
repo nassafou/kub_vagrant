@@ -1,0 +1,10 @@
+---
+ - hosts: web
+   remote_user: bob
+   roles:
+#     - common
+     - user
+   
+ #  user: 
+ #    name: icoexist
+ #    comment: icoexist 

@@ -1,2 +1,7 @@
 ---
 # tasks file for roles/user
+ - name: user
+   become: yes
+   user:
+     name: abass
+     comment: abass kaboua
