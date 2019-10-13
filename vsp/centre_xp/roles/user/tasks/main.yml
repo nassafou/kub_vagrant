@@ -1,3 +1,4 @@
+p
 ---
 # tasks file for roles/user
  - name: user

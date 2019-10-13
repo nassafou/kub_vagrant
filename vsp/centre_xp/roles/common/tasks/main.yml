@@ -1,2 +1,8 @@
 ---
 # tasks file for common
+ - name: "install"
+   apt: {{ item }}
+   with_items: 
+       - git
+       - htop
+
