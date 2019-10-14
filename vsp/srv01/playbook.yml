@@ -1,0 +1,10 @@
+---
+ - name: "Install"
+   hosts: web
+   remote_user: bob
+
+   tasks:
+     name: "install git"
+     apt: htop
+     state: latest 
+   
