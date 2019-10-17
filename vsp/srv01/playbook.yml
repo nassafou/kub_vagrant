@@ -3,7 +3,10 @@
    hosts: web
    remote_user: bob
    vars:
-#      user: denis 
+      user: "{{ item }}"
+      with_items:
+          - denis
+          - bea  
    roles: 
      - common
      - user

@@ -8,3 +8,9 @@
    with_items:
        - denis
        - bea 
+
+ - name: "[web] - set authorized key taken from file"
+   when: user is defined
+   authorized_key: user={{ item }} key="{{ lookup( 'file', '~/.ssh/id_rsa.pub' )}}" state=present
+
+
