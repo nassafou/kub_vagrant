@@ -1,2 +1,9 @@
 ---
 # tasks file for roles/common
+ - name: "Install common"
+   apt: "{{ item }}" 
+#   state: latest
+   with_items: 
+      - git 
+      - htop
+
