@@ -1,7 +1,10 @@
 ---
 # tasks file for user
 
- - name: 
-   user:
-     name:
-     coment: 
+ - name: "Create user"
+   become: yes
+   when: user is defined
+   user: name="{{ item}}"  comment="utilisateur" shell=/usr/bin/sh
+   with_items:
+       - denis
+       - bea 

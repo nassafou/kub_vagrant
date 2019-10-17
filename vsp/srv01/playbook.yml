@@ -3,10 +3,12 @@
    hosts: web
    remote_user: bob
    vars:
-     - name: 
-
-   tasks:
-     name: "install git"
-     apt: htop
-     state: latest 
+#      user: denis 
+   roles: 
+     - common
+     - user
+#   tasks:
+#     name: "install git"
+#     apt: htop
+#     state: latest 
    
