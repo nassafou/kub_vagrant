@@ -4,6 +4,7 @@
    remote_user: bob
    vars:
       user: denis
+      domain: bov.dev
 
    roles: 
      - common
