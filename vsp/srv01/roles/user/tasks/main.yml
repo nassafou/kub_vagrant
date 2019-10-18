@@ -4,13 +4,26 @@
  - name: "Create user"
    become: yes
    when: user is defined
-   user: name="{{ item}}"  comment="utilisateur" shell=/usr/bin/sh
-   with_items:
-       - denis
-       - bea 
+   user: name="{{ user}}"  comment="utilisateur" shell=/usr/bin/sh
+   tags: 
+     - nom
+#   authorized_key: name={{ item }}  key="{{ lookup('file', '~/.ssh/id_rsa.pub')}}" state=present
+#   with_items:
+ #      - denis
+ #      - bea 
 
  - name: "[web] - set authorized key taken from file"
+   become: yes
    when: user is defined
-   authorized_key: user={{ item }} key="{{ lookup( 'file', '~/.ssh/id_rsa.pub' )}}" state=present
-
-
+   authorized_key: user={{ user }} key="{{ lookup( 'file', '~/.ssh/id_rsa.pub' )}}" state=present
+   tags: 
+     - nom
+#   with_items:
+#       - denis
+#       - bea
+ - name: "[web] -set sudoer"
+   become: yes 
+   template:
+      src: roles/templates/sudoer.j2
+      dest: /etc/sudoers.d/{{ user }}.sudoers
+      validate: /usr/sbin/visudo -cf %s

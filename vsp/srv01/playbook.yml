@@ -3,13 +3,12 @@
    hosts: web
    remote_user: bob
    vars:
-      user: "{{ item }}"
-      with_items:
-          - denis
-          - bea  
+      user: denis
+
    roles: 
      - common
      - user
+     - nginx
 #   tasks:
 #     name: "install git"
 #     apt: htop
