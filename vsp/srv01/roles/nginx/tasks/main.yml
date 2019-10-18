@@ -3,3 +3,15 @@
  - name: "[web] install nginx"
    become: yes
    apt: name=nginx #state=latest
+
+ - name: "[web] started nginx"
+   service: name=nginx state=started enabled=true
+
+ - name: "[web] delete nginx"
+   file: path=/etc/nginx/sites-enable/default state=absent
+   notify: nginx reload
+
+ - name: "[web] config"
+   file: path="~/bov.dev" state=directory
+
+
