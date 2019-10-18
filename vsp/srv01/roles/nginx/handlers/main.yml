@@ -1,4 +1,5 @@
 ---
 # handlers file for roles/nginx
- - name: reload nginx
-   service: name=nginx state=reloaded
+ - name: nginx reload
+   become: yes
+   service:  name=nginx state=reloaded
