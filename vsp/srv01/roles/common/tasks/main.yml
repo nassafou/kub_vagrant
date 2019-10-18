@@ -2,6 +2,8 @@
 # tasks file for roles/common
  - name: "Install common"
    apt: "{{ item }}" 
+   tags:
+     - nom
 #   state: latest
    with_items: 
       - git 
