@@ -1,0 +1,8 @@
+---
+ - name: "[web]- install site"
+   hosts: web
+   remote_user: bob
+   vars:
+   roles:
+     - common
+     - user

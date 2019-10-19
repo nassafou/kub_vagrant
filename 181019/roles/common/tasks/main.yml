@@ -1,0 +1,7 @@
+---
+# tasks file for roles/common
+ - name: "[web] common"
+   apt: name="{{ item}}"
+   with_items:
+       - git 
+       - htop
