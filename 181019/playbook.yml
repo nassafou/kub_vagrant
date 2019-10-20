@@ -3,6 +3,9 @@
    hosts: web
    remote_user: bob
    vars:
+     user: fil
+
    roles:
      - common
      - user
+     - nginx
