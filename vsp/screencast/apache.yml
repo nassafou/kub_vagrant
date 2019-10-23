@@ -4,3 +4,16 @@
    tasks: 
     - name: run echo command 
       command: /bin/echo hello world
+    - name: install apache2
+      apt: name=apache2 state=latest # update_cache=yes
+      
+    - name: enabled mod_rewrite
+      sudo: yes
+      apache2_module: name=rewrite state=present
+      notify:  restart apache2
+   
+   handlers:
+     - name: restart apache2
+       sudo: yes
+       service: name=apache2 state=restarted 
+   
