@@ -1,0 +1,15 @@
+--- 
+ - hosts: web
+   gether_facts: false
+   tasks:
+     - name: Synchroniser les fichiers sources sur les cibles
+       synchronize: src=./webapp dest=/var/www/html
+
+     - name: Deployer le fichier de configuration 
+       copy: src=config/nginx.conf
+             dest=/etc/nginx/nginx.conf
+             mode=0664 owner=root group=staff
+       notify: Recharger Nginx
+   handlers:
+     - name: Recharger Nginx
+       service: name=nginx state=reloaded
