@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/awk -f
 
 BEGIN { print "**** début****" }
 END { print "**** fin****" }
