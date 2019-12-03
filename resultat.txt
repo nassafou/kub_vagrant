@@ -1,0 +1,11 @@
+Linux seedway 4.15.0-70-generic #79~16.04.1-Ubuntu SMP Tue Nov 12 14:01:10 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+/home/bob/kub_vagrant
+total 32
+-rw-rw-r-- 1 bob bob  395 déc.   3 15:38 dump.log
+-rw-rw-r-- 1 bob bob 1186 oct.  26 16:08 install_common.sh
+-rw-rw-r-- 1 bob bob  767 oct.  26 08:09 install_master.sh
+-rw-rw-r-- 1 bob bob  493 sept. 12 04:34 install_node.sh
+-rw-rw-r-- 1 bob bob 2691 sept. 12 03:51 OldVagrantfile
+-rw-rw-r-- 1 bob bob   14 sept. 12 03:51 README.md
+-rw-rw-r-- 1 bob bob  137 déc.   3 15:39 resultat.txt
+-rw-rw-r-- 1 bob bob 1732 oct.  26 06:18 Vagrantfile
