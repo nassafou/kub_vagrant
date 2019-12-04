@@ -1,4 +1,4 @@
-#!/bin/bash
+#bcdef.0123456789abcdef!/bin/bash
 
 ## install master for k8s
 

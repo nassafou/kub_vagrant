@@ -1,1 +1,1 @@
-{"name":"debian/stretch64","version":"9.9.1","provider":"virtualbox","directory":"boxes/debian-VAGRANTSLASH-stretch64/9.9.1/virtualbox"}
+{"name":"bento/ubuntu-16.04","version":"201910.20.0","provider":"virtualbox","directory":"boxes/bento-VAGRANTSLASH-ubuntu-16.04/201910.20.0/virtualbox"}
