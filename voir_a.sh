@@ -1,2 +1,4 @@
 #!/bin/sh
-a=jules
+
+a=Jules
+a=Neron

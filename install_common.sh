@@ -1,4 +1,4 @@
-nstall common for k8s
+install common for k8s
 
 
 HOSTNAME=$(hostname)
