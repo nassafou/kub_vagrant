@@ -1,0 +1,6 @@
+#!/bin/sh
+
+
+echo  "La date du jour est:"
+date
+

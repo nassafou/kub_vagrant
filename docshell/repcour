@@ -1,0 +1,10 @@
+#!/bin/sh
+
+connx=$whoami
+ou=`pwd`
+
+echo -n  "nom mon de connexion:"  
+whoami 
+echo -n "mon repertoire courant est:" 
+pwd
+
