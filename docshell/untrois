@@ -1,0 +1,6 @@
+#!/bin/sh
+
+read -p "rentrez un mot: " a b c d e
+
+echo   "$a " "$c"  
+
