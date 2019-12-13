@@ -1,6 +1,6 @@
 #!/bin/sh
+a=$prenom
+read -p "rentrez un mot: " prenom
 
-read -p "rentrez un mot" prenom
-
-#echo $prenom  
-echo $REPLY
+echo -n  "$prenom "  
+echo $prenom

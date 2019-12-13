@@ -1,0 +1,7 @@
+#!/bin/sh
+read -p  "entrez une suite de mots :"
+
+set a b c d e f g
+
+
+echo $#
