@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set $(who |wc -l)
+
+echo $1

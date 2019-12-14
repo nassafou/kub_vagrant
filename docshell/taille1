@@ -1,0 +1,5 @@
+#!/bin/sh
+
+
+set -- $(ls -l $1)
+echo $5
