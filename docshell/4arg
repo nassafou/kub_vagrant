@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set a b c d 
+h=4
+#echo $#
+while [ -n  $# ]
+do
+   echo "correct"
+
+done
+
+

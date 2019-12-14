@@ -1,0 +1,7 @@
+#!/bin/sh
+
+
+echo ma machine courante est  $(hostname)
+
+
+

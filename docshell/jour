@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set $(date )
+
+echo $5
+
