@@ -1,0 +1,7 @@
+#!/bin/sh
+while who | grep bob
+do
+   echo "l'utilisateur bob est connecter"
+   sleep 4
+done
+
