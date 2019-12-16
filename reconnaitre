@@ -1,0 +1,16 @@
+#!/bin/sh
+
+read -p " Entrez un mot: " mot
+#a=`echo $mot` 
+#| cut -b 1 
+
+
+c=`echo $mot | cut -b 1` 
+echo $c
+case $c in 
+       [a-z] ) echo minuxscule ;;
+       [A-Z] ) echo Majuscule ;;
+ [[:digit:]] ) echo chiffre   ;;
+            *) echo indefinit 
+esac 
+
