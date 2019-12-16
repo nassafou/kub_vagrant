@@ -1,0 +1,7 @@
+#!/bin/sh
+
+read -p "entre une reponse:" rep
+case $rep in
+o|O ) echo OUI ;;
+*)    echo indefini
+esac
