@@ -1,0 +1,8 @@
+#!/bin/sh
+
+#date | awk -F " "  '$1'
+
+a=$('date' ) 
+echo $a | cut -b 1-30
+awk '{$a; print $0}'
+
