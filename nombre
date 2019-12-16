@@ -1,0 +1,7 @@
+#!/bin/sh
+
+shopt -s extglob
+case $1 in
++ ([ [:digit:] ])) echo "$1 est une suite de chiffres" ;;
+esca
+
