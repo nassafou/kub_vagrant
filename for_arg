@@ -1,0 +1,9 @@
+#!/bin/sh
+
+i=6
+for i
+do
+echo $i
+echo "Passage au next"
+
+done
