@@ -1,0 +1,8 @@
+#!/bin/sh
+ 
+ruptime | while read nom
+do
+
+    echo $nom
+
+done

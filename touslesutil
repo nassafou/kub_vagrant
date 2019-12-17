@@ -1,0 +1,11 @@
+#!/bin/sh
+
+u=`cat /etc/passwd`
+
+#echo $u
+cat /etc/passwd | while read nom
+do
+echo ${nom%%:*} 
+done
+
+

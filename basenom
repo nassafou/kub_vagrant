@@ -1,0 +1,9 @@
+#!/bin/sh
+
+u=/etc/passwd/nom
+
+#echo $u
+
+echo ${u##*/} 
+
+
