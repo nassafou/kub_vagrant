@@ -1,0 +1,21 @@
+#!/bin/sh
+
+#for i in `cat personnes`
+#do
+# echo $i  
+#done
+cat personnes | while read nom
+do  
+  echo $nom | grep f >>filles
+  
+done
+var=m
+#for i in `cat personnes | cut -d " " -f 2` 
+#do
+#if [ $i != $var ]
+#then
+#   echo 
+#fi
+#done
+#done
+#fi   
