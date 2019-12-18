@@ -1,8 +1,0 @@
-#!/bin/sh
-
-who > tmp
-while read nom reste
-do
-      echo $nom
-done < tmp
-rm tmp
