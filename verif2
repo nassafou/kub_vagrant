@@ -1,0 +1,10 @@
+#!/bin/sh
+
+ awk 'BEGIN { print "Verification du fichier /etc/passwd pour ...";
+              print "- les utilisateurs avec UID = 0 " ;
+              print "- les utilisateurs avec UID >= 60000" ;
+              FS=":"}
+      $3 == 0 { print "UID 0 ligne "NR" :\n"$0 }
+      $3 >= 60000  { print "UID >= 60000 ligne "NR" :\n"$0 }
+      END   { print "Fin" }
+' /etc/passwd 

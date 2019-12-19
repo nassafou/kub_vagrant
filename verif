@@ -1,0 +1,8 @@
+#!/bin/sh
+
+awk 'BEGIN { print "Verification des UID et GID dans le fichier /etc/passwd";
+              FS=":"}
+      $3 !~ /^[0-9][0-9]*$/ {print "UID  erreur ligne "NR" :\n"$0 }
+      $4 !~ /^[0-9][0-9]*$/ {print "GID  erreur ligne "NR" :\n"$0 }
+      END   { print "Fin" }
+' /etc/passwd
