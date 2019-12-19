@@ -1,0 +1,34 @@
+#!/bin/bash
+function showfile(){
+	local i_show
+	ls -l --color=auto ./fichier*.*
+	for i_show in "" ".lnk"; do
+	echo "$1$i_show:	$(cat $1$i_show)	(on cat)"
+	done
+}
+function separator(){
+	local ARG;
+	echo -n "go next"
+	for j in $(seq 20); do
+		test $j -ne 20 && ARG="-n" || ARG=""
+		echo $ARG $1;
+	done
+}
+if [[ ! -z $1  && $1 != "lnk" ]]; then
+	echo "$1: bad argument"
+	exit
+fi
+test -n "$1" && EXT=".$1"
+for i in "fichier1" "fichier2"; do
+	echo "salut toi $i" > $i
+	ln -sv $i $i.lnk
+	showfile $i
+	test "$i" = "fichier1" && SED="--follow-symlinks " || SED=""
+	sed -i $SED 's/salut//' $i.lnk;
+	echo "operation:sed -i $SED's/salut//' $i$EXT:"
+	showfile $i
+	separator "="
+	rm $i*
+done
+test -z "$1" && EXT="\'lnk\' as" || EXT="no"
+echo "you can try with $EXT argument..."
