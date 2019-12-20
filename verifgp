@@ -1,0 +1,7 @@
+#!/bin/sh
+awk 'BEGIN { print "Verification du fichier /etc/group";
+              print "le groupe 20 s'appelle t-il bien users ? " ;
+              FS=":"}
+      $1 == "users" && $3 ==20 { print "groupe "$1" a le GID "$3" !" }
+      END   { print "Fin" }
+' /etc/group 
