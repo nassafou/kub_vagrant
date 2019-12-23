@@ -1,0 +1,2 @@
+for machine in master node1 node2; do docker-machine create -d virtualbox --virtualbox-memory "512" ${machine}; done
+
