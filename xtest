@@ -1,0 +1,2 @@
+bob:xUID=1000
+GID=1000:bob gnulinux,,,:/home/bob:/bin/bash
