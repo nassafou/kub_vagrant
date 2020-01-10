@@ -1,0 +1,10 @@
+---
+- name: "locally"
+  hosts: all
+  gather_facts: no
+  connection: local
+  tasks: 
+    - name: "create directory for each machine"
+      file: 
+        path: "/tmp/{{inventory_hostname}}"
+        state: "directory"
