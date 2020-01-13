@@ -1,0 +1,9 @@
+
+[inventaire]
+inventaire-central
+
+[apache]
+rec-apache-1
+rec-apache-2
+192.168.205.12
+
