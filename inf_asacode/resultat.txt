@@ -1,0 +1,20 @@
+rec-apache-1 | UNREACHABLE! => {
+    "changed": false, 
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname rec-apache-1: No address associated with hostname", 
+    "unreachable": true
+}
+rec-apache-2 | UNREACHABLE! => {
+    "changed": false, 
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname rec-apache-2: No address associated with hostname", 
+    "unreachable": true
+}
+inventaire-central | UNREACHABLE! => {
+    "changed": false, 
+    "msg": "Failed to connect to the host via ssh: ssh: Could not resolve hostname inventaire-central: No address associated with hostname", 
+    "unreachable": true
+}
+192.168.205.12 | UNREACHABLE! => {
+    "changed": false, 
+    "msg": "Failed to connect to the host via ssh: Permission denied (publickey).", 
+    "unreachable": true
+}
