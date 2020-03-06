@@ -1,0 +1,21 @@
+---
+- hosts: apache
+  become: yes
+  tasks:
+    - name: install apache
+      apt:
+        name: apache2
+        state: present
+    - name: "Apache configuration"
+      template:
+        src: "inventaire.conf.j2"
+        dest: "/etc/apache2/sites-available/inventory.conf"
+        owner: "vagrant"
+        group: "vagrant"
+    - name: "Start apache service"
+      service:
+        name: apache2
+        state: restarted
+        enabled: yes
+      tags: [ "restart" ]
+
