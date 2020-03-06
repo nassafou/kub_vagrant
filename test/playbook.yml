@@ -1,0 +1,22 @@
+---
+- hosts: apache
+  become: yes
+  tasks:
+    - name: install apache
+      apt:
+        name: apache2
+        state: present
+    - name: "Apache configuration"
+      template:
+        src: "inventaire.conf.j2"
+        dest: "/etc/apache2/sites-available/inventory.conf"
+        owner: "vagrant"
+        group: "vagrant"
+     # register execution result for template creation
+      register: apache_conf
+      
+     # register execution result for template creation
+    - debug: var=apache_conf
+   
+   
+

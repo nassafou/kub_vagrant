@@ -1,0 +1,4 @@
+Ceci est un text d'essai. Il est à utiliser pour des tests.
+Ceci est un text d'essai. Il est à utiliser pour des tests.
+recherche d'un bloc de : text entre: 2 marqueurs
+Jean-Louis

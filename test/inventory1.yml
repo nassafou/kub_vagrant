@@ -1,0 +1,26 @@
+---
+- name: "Generate html file for each host"
+  hosts: all
+  #connection: local
+  gather_facts: yes
+  vars:
+    host_inventory: "192.168.205.12"
+    inventory_dir: "/var/www/html/inventory"
+  tasks: 
+    - name: "Create template directory"
+      file:
+        path: "{{inventory_dir}}"
+        owner: "vagrant"
+        group: "vagrant"
+        mode: "0755"
+        state: "directory"
+     # Delegate this execution on central machine
+      delegate_to: "{{host_inventory}}"
+     # As we only have one central machine,
+     # run only one time this task
+      run_once: yes 
+    - name: "html file generation"
+      template: 
+        src: "machineIP.html.j2"
+        dest: "{{inventory_dir}}/{{inventory_hostname}}.html"
+      delegate_to: "{{host_inventory}}"
